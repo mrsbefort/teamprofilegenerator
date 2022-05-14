@@ -1,0 +1,1 @@
+//intern parent class needs to include: name, id, email, school.

@@ -1,0 +1,1 @@
+//manager parent class needs to include: name, id, email, office number.
