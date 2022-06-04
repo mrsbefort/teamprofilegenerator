@@ -3,14 +3,13 @@ const Engineer = require('./lib/engineer');
 const Intern = require('./lib/intern');
 const Manager = require('./lib/manager');
 
-const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
-const render = require("./Develop/lib/htmlRenderer");
+const render = require("./src/htmlrender");
 
 //employee objects array
 const employees = [];
@@ -64,8 +63,8 @@ addEngineer = () => {
         }
     ]).then((engineerResults) => {
         engineerResults.role = "Engineer";
-        const { name, id, email, github, role } = engineerResults;
-        const newEngineer = new Engineer(name, id, email, github, role);
+        const { name, id, email, github} = engineerResults;
+        const newEngineer = new Engineer(name, id, email, github);
         employees.push(newEngineer);
         //ask if user wants to add another team member
         addEmployee();
@@ -98,8 +97,8 @@ addIntern = () => {
         }
     ]).then((internResults) => {
         internResults.role = "Intern";
-        const { name, id, email, school, role } = internResults;
-        const newIntern = new Intern(name, id, email, school, role);
+        const { name, id, email, school} = internResults;
+        const newIntern = new Intern(name, id, email, school);
         employees.push(newIntern);
         //ask if user wants to add another team member
         addEmployee();
@@ -129,7 +128,10 @@ addEmployee = () => {
 };
 
 //initializing Manager questions and welcome message
-init = () => {
+
+const init = () => {
+   if(!fs.existsSync(OUTPUT_DIR))
+   fs.mkdirSync(OUTPUT_DIR); //conditional check
     console.log("Welcome! \nTo Generate a Team, \nAnswer the following prompts \nYour team will be organized in the \noutput folder team.html file.");
     return inquirer.prompt([
         //questions about Employee
@@ -155,8 +157,8 @@ init = () => {
         },
     ]).then((managerResults) => {
         managerResults.role = "Manager";
-        const { name, id, email, officeNumber, role } = managerResults;
-        const newManager = new Manager(name, id, email, officeNumber, role);
+        const { name, id, email, officeNumber} = managerResults;
+        const newManager = new Manager(name, id, email, officeNumber);
         employees.push(newManager);
         // addEmployee();
         employeeType();

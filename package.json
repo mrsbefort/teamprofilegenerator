@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/mrsbefort/teamprofilegenerator/issues"
   },
-  "homepage": "https://github.com/mrsbefort/teamprofilegenerator#readme"
+  "homepage": "https://github.com/mrsbefort/teamprofilegenerator#readme",
+  "dependencies": {
+    "inquirer": "^8.2.4"
+  }
 }
